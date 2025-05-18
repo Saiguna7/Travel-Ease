@@ -2,5 +2,10 @@
     "buildCommand": "npm run vercel-build",
     "installCommand": "npm install --no-package-lock --platform=linux --arch=x64",
     "framework": "nextjs",
-    "outputDirectory": ".next"
+    "outputDirectory": ".next",
+    "build": {
+    "env": {
+      "NPM_FLAGS": "--legacy-peer-deps"
+    }
+  }
   }
