@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack & npx next-video sync -w",
     "build": "next build",
-    "vercel-build": "npm install --legacy-peer-deps && npm run build",
+    "vercel-build": "npm install --legacy-peer-deps sharp && npm run build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+     "postinstall": "npm rebuild --cpu=wasm32 sharp"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.14",
