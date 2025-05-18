@@ -254,32 +254,37 @@
   --sidebar-ring: oklch(0.8 0.32 140 / 50%);
 }
 
-/* Neon glow effects */
-.neon .glow-text {
-  text-shadow:
-    0 0 5px var(--primary),
-    0 0 10px var(--primary),
-    0 0 15px var(--primary);
-}
-
-.neon .glow-box {
-  box-shadow:
-    0 0 5px var(--primary),
-    0 0 10px var(--primary);
-}
-
-.neon .glow-button {
-  box-shadow:
-    0 0 5px var(--primary),
-    0 0 10px var(--primary);
-  transition: all 0.3s ease;
-}
-
-.neon .glow-button:hover {
-  box-shadow:
-    0 0 8px var(--primary),
-    0 0 15px var(--primary),
-    0 0 20px var(--primary);
+@layer components {
+  .neon {
+    color: white;
+  }
+  .neon .glow-text {
+    text-shadow:
+      0 0 5px var(--primary),
+      0 0 10px var(--primary),
+      0 0 15px var(--primary);
+  }
+  
+  .neon .glow-box {
+    box-shadow:
+      0 0 5px var(--primary),
+      0 0 10px var(--primary);
+  }
+  
+  .neon .glow-button {
+    box-shadow:
+      0 0 5px var(--primary),
+      0 0 10px var(--primary);
+    transition: all 0.3s ease;
+  }
+  
+  .neon .glow-button:hover {
+    box-shadow:
+      0 0 8px var(--primary),
+      0 0 15px var(--primary),
+      0 0 20px var(--primary);
+  }
+  
 }
 
 /* Base styles for all themes */
@@ -301,3 +306,26 @@ body * {
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
+
+::view-transition-old(root),
+::view-transition-new(root){
+  animation: none !important;
+}
+
+::view-transition-group(root){
+  z-index:auto !important;
+}
+::view-transition-image-pair(root){
+  isolation: isolate;
+  will-change: transform opacity clip-path;
+  z-index: 1;
+}
+::view-transition-new(root){
+  z-index: 10000;
+  animation: none !important;
+}
+::view-transition-old(root){
+  animation: none !important;
+  z-index: 1;
+}
+

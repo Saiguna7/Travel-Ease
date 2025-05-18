@@ -4,7 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme/Theme-provider";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-
+import { AnimationProvider } from "@/components/animation/animation-provider";
+import {ViewTransitions} from 'next-view-transitions'
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,22 +27,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ViewTransitions>
+      
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.className} ${geistMono.className} antialiased`}
       >
-          <ThemeProvider
+        <ThemeProvider
           attribute="class"
           defaultTheme="blue"
           storageKey="theme"
           enableSystem
           disableTransitionOnChange
-          >
-            <Navbar />
-        {children}
-        <Footer/>
-          </ThemeProvider>
+        >
+          <AnimationProvider>
+              <Navbar />
+              {children}
+              <Footer />
+          </AnimationProvider>
+        </ThemeProvider>
       </body>
     </html>
+        </ViewTransitions>
   );
 }

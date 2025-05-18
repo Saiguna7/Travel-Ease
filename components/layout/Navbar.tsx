@@ -7,13 +7,44 @@ import gsap from 'gsap';
 import { ModeToggle } from '@/components/theme/Theme-button';
 import Image from 'next/image';
 import Logo from '@/public/logo.png'
+import {useTransitionRouter} from 'next-view-transitions'
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const navbarRef = useRef<HTMLDivElement>(null);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [shouldShowNavbar, setShouldShowNavbar] = useState(true);
-  
+  const router=useTransitionRouter()
+  function slideInOut(){
+document.documentElement.animate([
+  {
+    opacity:1,
+    transform:"translateY(0)"
+  },
+  {
+    opacity:0.2,
+    transform:"translateY(-35%)"
+  }
+],{
+  duration: 800,
+    easing: "cubic-bezier(0.65, 0, 0.35, 1)", 
+    fill: "forwards",
+    pseudoElement: "::view-transition-old(root)"
+})
+document.documentElement.animate([
+  {
+   clipPath:"polygon(0% 100%, 100% 100%, 100% 100%,0% 100%)"
+  },
+  {
+    clipPath:"polygon(0% 100%, 100% 100%,100% 0%,0% 0%)",
+  }
+],{
+  duration:800,
+  easing:"cubic-bezier(0.87,0,0.13,1)",
+  fill:"forwards",
+  pseudoElement:"::view-transition-new(root)"
+})
+  }
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -109,6 +140,8 @@ export function Navbar() {
     }
   };
 
+
+
   return (
     <div 
       ref={navbarRef} 
@@ -118,7 +151,12 @@ export function Navbar() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="nav-logo flex items-center">
-              <Link href="/" className="text-xl font-serif font-bold flex items-center gap-2">
+              <Link onClick={(e)=>{
+                e.preventDefault()
+                router.push("/",{
+                  onTransitionReady:slideInOut,
+                })
+              }} href="/" className="text-xl font-serif font-bold flex items-center gap-2">
               <Image
                 src={Logo}
                 alt="TravelEase Logo"
@@ -136,7 +174,13 @@ export function Navbar() {
                 const isActive = pathname === link.href;
 
                 return (
-                  <Link 
+                  <Link
+                  onClick={(e)=>{
+                    e.preventDefault()
+                    router.push(`${link.href}`,{
+                      onTransitionReady:slideInOut,
+                    })
+                  }}
                     key={link.href}
                     href={link.href}
                     className={`nav-link flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
@@ -154,8 +198,6 @@ export function Navbar() {
                 <ModeToggle />
               </div>
             </div>
-
-            {/* Mobile Menu Button */}
             <div className="flex items-center md:hidden space-x-4">
               <div className="nav-link">
                 <ModeToggle />
@@ -180,6 +222,12 @@ export function Navbar() {
                   return (
                     <li key={link.href}>
                       <Link 
+                      onClick={(e)=>{
+                        e.preventDefault()
+                        router.push(`${link.href}`,{
+                          onTransitionReady:slideInOut,
+                        })
+                      }}
                         href={link.href}
                         className={`mobile-nav-link flex items-center space-x-2 p-3 rounded-md transition-colors ${
                           isActive 

@@ -1,13 +1,41 @@
-// app/page.tsx
 "use client"
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Hero } from '@/components/features/home/Hero';
-import { FeaturedDestinations } from '@/components/features/destinations/FeaturedDestinations';
-import { TravelPlanner } from '@/components/features/planner/TravelPanner';
-import { TripInspiration } from '@/components/features/inspiration/TripInspiration';
-import { TravelTips } from '@/components/features/tips/TravelTips';
+import dynamic from 'next/dynamic';
+
+const FeaturedDestinations = dynamic(
+  () => import('@/components/features/destinations/FeaturedDestinations').then(mod => mod.FeaturedDestinations),
+  {
+    loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-md"></div>,
+    ssr: false
+  }
+);
+
+const TravelPlanner = dynamic(
+  () => import('@/components/features/planner/TravelPanner').then(mod => mod.TravelPlanner),
+  {
+    loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-md"></div>,
+    ssr: false
+  }
+);
+
+const TripInspiration = dynamic(
+  () => import('@/components/features/inspiration/TripInspiration').then(mod => mod.TripInspiration),
+  {
+    loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-md"></div>,
+    ssr: false
+  }
+);
+
+const TravelTips = dynamic(
+  () => import('@/components/features/tips/TravelTips'),
+  {
+    loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-md"></div>,
+    ssr: false
+  }
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,23 +47,34 @@ export default function HomePage() {
     
     const sections = pageRef.current.querySelectorAll('.section');
     
-    gsap.fromTo(
-      sections,
-      { opacity: 0, y: 100 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.2,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: pageRef.current,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          scrub: 1,
-        },
-      }
+    // Use more efficient animations with IntersectionObserver instead
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gsap.to(entry.target, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out'
+            });
+            // Stop observing after animation
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
     );
+    
+    // Set initial state and observe each section
+    sections.forEach(section => {
+      gsap.set(section, { opacity: 0, y: 50 });
+      observer.observe(section);
+    });
+    
+    return () => {
+      sections.forEach(section => observer.unobserve(section));
+    };
   }, []);
   
   return (
