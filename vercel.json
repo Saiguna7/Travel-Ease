@@ -1,11 +1,11 @@
 {
     "buildCommand": "npm run vercel-build",
-    "installCommand": "npm install --legacy-peer-deps --no-optional",
+    "installCommand": "npm install --legacy-peer-deps --omit=optional",
     "framework": "nextjs",
     "outputDirectory": ".next",
     "build": {
     "env": {
-      "NPM_FLAGS": "--legacy-peer-deps"
+      "NPM_FLAGS": "--legacy-peer-deps --omit=optional"
     }
   }
   }
