@@ -1,11 +1,13 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm install --omit=optional",
+  "installCommand": "npm install --include=optional --cpu=wasm32",
   "buildCommand": "npm run vercel-build",
   "outputDirectory": ".next",
   "build": {
     "env": {
       "NPM_CONFIG_OMIT": "optional",
+       "NEXT_SHARP_PATH": "/tmp/node_modules/sharp",
+      "SHARP_IGNORE_GLOBAL_LIBVIPS": "1",
       "NPM_CONFIG_OPTIONAL": "false",
       "NPM_FLAGS": "--legacy-peer-deps"
     }
