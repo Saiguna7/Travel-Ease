@@ -28,7 +28,6 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
   const [activeDay, setActiveDay] = useState<number>(0);
   const plannerRef = useRef<HTMLDivElement>(null);
   
-  // Function to handle adding a new activity
   const addActivity = () => {
     const updatedDays = [...tripDays];
     const newActivity: Activity = {
@@ -56,7 +55,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
     }, 0);
   };
   
-  // Function to handle notes update
+
   const updateNotes = (notes: string) => {
     const updatedDays = [...tripDays];
     updatedDays[activeDay].notes = notes;
@@ -79,7 +78,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
     }
   };
   
-  // Function to delete an activity
+
   const deleteActivity = (activityId: string) => {
     const element = document.getElementById(activityId);
     
@@ -137,7 +136,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
     });
   };
   
-  // Get priority color
+
   const getPriorityColor = (priority: 'high' | 'medium' | 'low') => {
     switch (priority) {
       case 'high':
@@ -155,7 +154,6 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
     <div ref={plannerRef} className="bg-primary dark:bg-gray-800 rounded-sm shadow-md p-6">
       <h3 className="font-serif text-2xl mb-6 text-white font-bold">Daily Planner</h3>
       
-      {/* Days navigation */}
       <div className="flex overflow-x-auto pb-4 mb-6 space-x-2">
         {tripDays.map((day, index) => (
           <button
@@ -179,7 +177,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
           
           <button
             onClick={addActivity}
-            className="bg-secondary  text-primary px-4 py-2 rounded-sm hover:bg-primary/90 transition-colors flex items-center"
+            className="bg-secondary custom-pointer  text-primary px-4 py-2 rounded-sm hover:bg-secondary/90 transition-colors flex items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -220,7 +218,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
               <p className="text-gray-500">No activities planned for this day.</p>
               <button
                 onClick={addActivity}
-                className="mt-4 text-primary dark:text-black hover:underline"
+                className="custom-pointer mt-4 text-primary dark:text-black hover:underline"
               >
                 Add an activity
               </button>
@@ -233,7 +231,7 @@ export const DailyPlanner: React.FC<DailyPlannerProps> = ({
                   key={activity.id}
                   className="border border-gray-200 rounded-sm p-4"
                 >
-                  <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-between items-start mb-4 text-white">
                     <div className="flex-grow">
                       <input
                         type="text"

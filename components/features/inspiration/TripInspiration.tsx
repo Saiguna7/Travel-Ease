@@ -1,4 +1,3 @@
-// components/features/inspiration/TripInspiration.tsx
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import gsap from 'gsap';
@@ -45,7 +44,6 @@ interface InspirationCardProps {
   index: number;
 }
 
-// Memoized quote card component
 const QuoteCard: React.FC<QuoteCardProps> = React.memo(({ quote, author, index }) => (
   <motion.div
     key={index}
@@ -53,7 +51,7 @@ const QuoteCard: React.FC<QuoteCardProps> = React.memo(({ quote, author, index }
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -20 }}
     transition={{ duration: 0.4, delay: index * 0.1 }}
-    className="quote-card bg-white dark:bg-card text-black dark:text-white p-6 rounded-sm shadow-md border-l-4 border-tertiary"
+    className="quote-card bg-secondary dark:bg-card text-white dark:text-white p-6 rounded-sm shadow-md border-l-4 border-tertiary"
   >
     <p className="font-serif text-lg italic mb-4">
       &quot;{quote}&quot;
@@ -66,7 +64,6 @@ const QuoteCard: React.FC<QuoteCardProps> = React.memo(({ quote, author, index }
 
 QuoteCard.displayName = 'QuoteCard';
 
-// Memoized category item component
 const CategoryItem: React.FC<CategoryItemProps> = React.memo(({ category }) => (
   <div 
     className={`category-item ${category.color} text-black rounded-sm p-5 text-center cursor-pointer hover:shadow-md transition-shadow will-change-transform`}
@@ -78,7 +75,6 @@ const CategoryItem: React.FC<CategoryItemProps> = React.memo(({ category }) => (
 
 CategoryItem.displayName = 'CategoryItem';
 
-// Memoized inspiration card component
 const InspirationCard: React.FC<InspirationCardProps> = React.memo(({ destination, index }) => (
   <div 
     className={`inspiration-card relative overflow-hidden rounded-sm ${
@@ -118,14 +114,13 @@ const InspirationCard: React.FC<InspirationCardProps> = React.memo(({ destinatio
 InspirationCard.displayName = 'InspirationCard';
 
 export const TripInspiration: React.FC = () => {
-  // State for quote management
+
   const [visibleQuotes, setVisibleQuotes] = useState<number>(3);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   
-  // Create typed refs
+
   const inspirationRef = useRef<HTMLDivElement | null>(null);
   
-  // Configure IntersectionObserver options
   const inViewOptions: IntersectionObserverProps = {
     triggerOnce: true,
     threshold: 0.1,
@@ -134,12 +129,11 @@ export const TripInspiration: React.FC = () => {
     }
   };
   
-  // Use IntersectionObserver hooks for each section
+
   const [headerRef, headerInView] = useInView(inViewOptions);
   const [cardsRef, cardsInView] = useInView(inViewOptions);
   const [categoriesRef, categoriesInView] = useInView(inViewOptions);
   
-  // Memoize static data with proper typing
   const featuredDestinations = useMemo<Destination[]>(() => 
     destinations.slice(0, 6), 
     []
@@ -193,13 +187,13 @@ export const TripInspiration: React.FC = () => {
     }
   ], []);
 
-  // Memoize derived state with explicit type
+
   const visibleQuotesData = useMemo<TravelQuote[]>(() => 
     travelQuotes.slice(0, visibleQuotes), 
     [travelQuotes, visibleQuotes]
   );
 
-  // Memoize handlers with proper typing
+
   const handleLoadMore = useCallback((): void => {
     if (visibleQuotes < travelQuotes.length) {
       setVisibleQuotes(Math.min(visibleQuotes + 3, travelQuotes.length));
@@ -298,7 +292,7 @@ export const TripInspiration: React.FC = () => {
         (entries) => {
           entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-              // Add a slight stagger effect
+
               gsap.to(entry.target, {
                 ...toVars,
                 delay: index * 0.05,
@@ -312,7 +306,7 @@ export const TripInspiration: React.FC = () => {
       
       const elements = document.querySelectorAll(selector);
       elements.forEach(el => {
-        // Set initial state
+
         gsap.set(el, fromVars);
         observer.observe(el);
       });
@@ -383,7 +377,7 @@ export const TripInspiration: React.FC = () => {
         <div className="mt-8 text-center">
           <button
             onClick={handleLoadMore}
-            className="border border-primary text-primary px-6 py-3 rounded-sm hover:bg-primary hover:text-black transition-colors"
+            className="custom-pointer border border-primary text-primary px-6 py-3 rounded-sm hover:bg-primary hover:text-black transition-colors"
           >
             {isExpanded ? 'Show Less' : 'Discover More Inspiration'}
           </button>

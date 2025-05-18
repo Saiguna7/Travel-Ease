@@ -28,7 +28,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
     }
   }, [isWelcomeComplete]);
   
-  // Animation for hero content
+
   useEffect(() => {
     if (!heroRef.current || !showVideo) return;
     
@@ -104,10 +104,10 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
             </p>
             
             <div className="fade-in flex gap-4">
-              <Link href="/planner" className="bg-secondary text-primary dark:text-white px-8 py-3 rounded-sm hover:bg-secondary/90 transition-colors">
+              <Link href="/planner" className="custom-pointer bg-secondary text-primary dark:text-white px-8 py-3 rounded-sm hover:bg-secondary/90 transition-colors">
                 Plan Your Trip
               </Link>
-              <Link href="/destinations" className="bg-transparent border border-white border-solid text-white px-8 py-3 rounded-sm hover:bg-white/10 transition-colors">
+              <Link href="/destinations" className="custom-pointer bg-transparent border border-white border-solid text-white px-8 py-3 rounded-sm hover:bg-white/10 transition-colors">
                 Explore Destinations
               </Link>
             </div>

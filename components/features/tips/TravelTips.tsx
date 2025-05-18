@@ -92,7 +92,7 @@ const TipCard: React.FC<TipCardProps> = React.memo(({ tip, index }) => {
     <div
       id={`tip-card-${tip.id}`}
       ref={cardRef}
-      className="tip-card bg-white dark:bg-card dark:text-white text-black rounded-sm shadow-md overflow-hidden transition-transform hover:scale-[1.02] hover:shadow-lg will-change-transform"
+      className="tip-card bg-secondary  dark:bg-card dark:text-white text-black rounded-sm shadow-md overflow-hidden transition-transform hover:scale-[1.02] hover:shadow-lg will-change-transform"
     >
       <div className="relative h-48">
         <Image
@@ -194,8 +194,6 @@ const TravelTips: React.FC = () => {
     threshold: 0.1,
   });
   
-  
-  // Create category buttons IntersectionObserver
   const [buttonsRef, buttonsInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -271,8 +269,6 @@ const TravelTips: React.FC = () => {
       ? travelTips 
       : travelTips.filter(tip => tip.category === selectedCategory)
   , [selectedCategory, travelTips]);
-  
-  // Handler for category selection
   const handleCategorySelect = useCallback((category: string): void => {
     
     setSelectedCategory(category);
@@ -289,7 +285,6 @@ const TravelTips: React.FC = () => {
   }, [headerInView]);
 React.useEffect(() => {
   if (buttonsInView) {
-    // Use a selector instead of trying to access .current
     gsap.fromTo(
       '.category-button',
       { opacity: 0, y: 10 },

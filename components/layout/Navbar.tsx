@@ -156,7 +156,7 @@ document.documentElement.animate([
                 router.push("/",{
                   onTransitionReady:slideInOut,
                 })
-              }} href="/" className="text-xl font-serif font-bold flex items-center gap-2">
+              }} href="/" className="custom-pointer text-xl font-serif font-bold flex items-center gap-2">
               <Image
                 src={Logo}
                 alt="TravelEase Logo"
@@ -183,7 +183,7 @@ document.documentElement.animate([
                   }}
                     key={link.href}
                     href={link.href}
-                    className={`nav-link flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
+                    className={` custom-pointer nav-link flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
                       isActive 
                         ? 'text-primary font-medium neon:glow-text' 
                         : 'hover:text-primary'
@@ -229,7 +229,7 @@ document.documentElement.animate([
                         })
                       }}
                         href={link.href}
-                        className={`mobile-nav-link flex items-center space-x-2 p-3 rounded-md transition-colors ${
+                        className={`custom-pointer mobile-nav-link flex items-center space-x-2 p-3 rounded-md transition-colors ${
                           isActive 
                             ? 'bg-primary/20 text-primary font-medium' 
                             : 'hover:bg-primary/10'

@@ -19,7 +19,6 @@ const themeOptions = [
   { value: 'blue', label: 'Blue', icon: Palette },
   { value: 'rose', label: 'Rose', icon: Palette },
   { value: 'violet', label: 'Violet', icon: Palette },
-  { value: 'neon', label: 'Neon', icon: Palette },
   { value: 'system', label: 'System', icon: null },
 ];
 
@@ -70,7 +69,7 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon">
+      <Button variant="outline" size="icon" className='custom-pointer'>
         <Sun className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Toggle theme</span>
       </Button>

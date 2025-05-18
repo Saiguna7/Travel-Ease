@@ -56,8 +56,7 @@ export const TravelPlanner: React.FC = () => {
         setTripDate(newDate);
         setDestination(newDestination);
         setTripDays(generateTripDays());
-        
-        // Animate the content back in
+
         gsap.to('.trip-content', {
           opacity: 1,
           y: 0,

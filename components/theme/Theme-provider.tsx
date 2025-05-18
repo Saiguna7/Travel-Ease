@@ -1,7 +1,7 @@
 'use client';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-const THEMES = ['light', 'dark', 'blue', 'rose', 'violet', 'neon', 'system'];
+const THEMES = ['light', 'dark', 'blue', 'rose', 'violet', 'system'];
 
 export function ThemeProvider({
   children,
